@@ -9,18 +9,19 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         title: const Text("Weather App"),
+        backgroundColor: Colors.transparent,
+        shadowColor: Colors.transparent,
+        iconTheme: IconThemeData(color: Colors.black),
       ),
       backgroundColor: Colors.white,
-      drawer: Drawer(
-        child: ListTile(),
-      ),
+      drawer: Drawer(),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.only(top: 20),
           child: Column(
             children: [
               Text(
-                "Cloudy",
+                "Sunny",
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 10),
@@ -39,7 +40,7 @@ class HomePage extends StatelessWidget {
                   Container(
                     child: Icon(
                       Icons.sunny,
-                      size: 50,
+                      size: 60,
                       color: Colors.amber,
                     ),
                   ),
