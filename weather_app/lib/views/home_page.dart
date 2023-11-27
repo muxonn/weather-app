@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/data/current/current_weather_repository.dart';
+import 'package:weather_app/data/current/models/current_weather.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
-  @override
-  Widget build(BuildContext context) {
+  Future<void> getCurrentWeather() async {
     CurrentWeatherRepository currentWeatherRepository =
         CurrentWeatherRepository();
-    currentWeatherRepository.getCurrentWeather("Warsaw");
+    final data = await currentWeatherRepository.getCurrentWeather("Warsaw");
+    //print(data.conditionIcon);
+  }
 
+  @override
+  Widget build(BuildContext context) {
+    getCurrentWeather();
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,

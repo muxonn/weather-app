@@ -7,6 +7,6 @@ class WeatherClient extends WABaseClient {
   Future<dynamic> getCurrent(String location) async {
     //final response = await get(WeatherClientPath.current(location));
     final response = await get(WeatherClientPath.current(location));
-    return response.body;
+    return response;
   }
 }
