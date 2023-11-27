@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:weather_app/data/current/current_weather_repository.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    CurrentWeatherRepository currentWeatherRepository =
+        CurrentWeatherRepository();
+    currentWeatherRepository.getCurrentWeather("Warsaw");
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
