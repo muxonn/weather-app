@@ -19,6 +19,7 @@ class HomePage extends HookWidget {
     final future = useMemoized(getCurrentWeather);
     final snapshot = useFuture(future);
     final searchController = useTextEditingController();
+    final data = useState(CurrentWeather());
 
     return Scaffold(
       appBar: AppBar(
@@ -43,8 +44,10 @@ class HomePage extends HookWidget {
             padding: const EdgeInsets.only(bottom: 50),
             child: SearchBar(
               controller: searchController,
-              onSubmitted: (String value) {
+              onSubmitted: (String value) async {
                 print(searchController.text);
+                data.value = await getCurrentWeather();
+                print(data.value);
               },
               constraints: const BoxConstraints(maxWidth: 300, minHeight: 55),
               leading: const Icon(Icons.search),
