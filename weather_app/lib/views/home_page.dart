@@ -68,7 +68,11 @@ class HomePage extends HookWidget {
                     isLoaded.value = true;
                   } catch (e) {
                     print("No results");
+                    final snackBar =
+                        SnackBar(content: const Text("No results"));
+
                     isLoaded.value = true;
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   }
                 },
                 constraints: const BoxConstraints(maxWidth: 300, minHeight: 55),
