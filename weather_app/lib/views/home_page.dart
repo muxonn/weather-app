@@ -6,20 +6,31 @@ import 'package:weather_app/data/current/models/current_weather.dart';
 class HomePage extends HookWidget {
   const HomePage({super.key});
 
-  Future<CurrentWeather> getCurrentWeather() async {
+  Future<CurrentWeather> getCurrentWeather(String location) async {
     CurrentWeatherRepository currentWeatherRepository =
         CurrentWeatherRepository();
-    final data = await currentWeatherRepository.getCurrentWeather("Warsaw");
+    final data = await currentWeatherRepository.getCurrentWeather(location);
     print(data.conditionIcon);
     return data;
   }
 
   @override
   Widget build(BuildContext context) {
-    final future = useMemoized(getCurrentWeather);
-    final snapshot = useFuture(future);
+    //TODO: create usememoized on start of app, but refresh page
+    // basing on data value - not use future
+
+    //final future = useMemoized(getCurrentWeather);
+    //final snapshot = useFuture(future);
     final searchController = useTextEditingController();
     final data = useState(CurrentWeather());
+    final isLoaded = useState(false);
+
+    useMemoized(() async {
+      isLoaded.value = false;
+      final response = await getCurrentWeather("Warsaw");
+      data.value = response;
+      isLoaded.value = true;
+    });
 
     return Scaffold(
       appBar: AppBar(
@@ -31,30 +42,42 @@ class HomePage extends HookWidget {
       ),
       backgroundColor: Colors.white,
       drawer: Drawer(),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 20),
-            child: snapshot.hasData
-                ? buildCurrentWeather(snapshot.data as CurrentWeather)
-                : CircularProgressIndicator(),
-          ),
-          const Spacer(),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 50),
-            child: SearchBar(
-              controller: searchController,
-              onSubmitted: (String value) async {
-                print(searchController.text);
-                data.value = await getCurrentWeather();
-                print(data.value);
-              },
-              constraints: const BoxConstraints(maxWidth: 300, minHeight: 55),
-              leading: const Icon(Icons.search),
-              backgroundColor: const MaterialStatePropertyAll(Colors.white),
+      body: Center(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: isLoaded.value
+                  ? buildCurrentWeather(data.value as CurrentWeather)
+                  : CircularProgressIndicator(),
             ),
-          ),
-        ],
+            const Spacer(),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 50),
+              child: SearchBar(
+                controller: searchController,
+                onSubmitted: (String value) async {
+                  print(searchController.text);
+                  //data.value = await getCurrentWeather();
+                  //print(data.value.country);
+                  try {
+                    isLoaded.value = false;
+                    final response =
+                        await getCurrentWeather(searchController.text);
+                    data.value = response;
+                    isLoaded.value = true;
+                  } catch (e) {
+                    print("No results");
+                    isLoaded.value = true;
+                  }
+                },
+                constraints: const BoxConstraints(maxWidth: 300, minHeight: 55),
+                leading: const Icon(Icons.search),
+                backgroundColor: const MaterialStatePropertyAll(Colors.white),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
