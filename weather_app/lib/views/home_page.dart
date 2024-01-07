@@ -53,7 +53,7 @@ class HomePage extends HookWidget {
             ),
             const Spacer(),
             Padding(
-              padding: const EdgeInsets.only(bottom: 50),
+              padding: const EdgeInsets.only(bottom: 30),
               child: SearchBar(
                 controller: searchController,
                 onSubmitted: (String value) async {
