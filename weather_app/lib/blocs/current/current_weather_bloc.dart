@@ -1,5 +1,4 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meta/meta.dart';
 import 'package:weather_app/data/current/current_weather_repository.dart';
 import 'package:weather_app/data/current/models/current_weather.dart';
 
