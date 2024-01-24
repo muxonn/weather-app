@@ -18,7 +18,7 @@ class CurrentWeatherBloc
       if (state is CurrentWeatherLoaded) {
         emit(CurrentWeatherLoading(lastWeather: state.weather));
       } else {
-        emit(CurrentWeatherInitial());
+        emit(CurrentWeatherLoading());
       }
 
       final weather = await repository.getCurrentWeather(location);
@@ -26,7 +26,10 @@ class CurrentWeatherBloc
       if (weather != null) {
         emit(CurrentWeatherLoaded(weather: weather));
       } else {
-        emit(CurrentWeatherInitial());
+        final newState = this.state;
+        if (newState is CurrentWeatherLoading && newState.lastWeather != null) {
+          emit(CurrentWeatherLoaded(weather: newState.lastWeather!));
+        }
       }
     });
   }

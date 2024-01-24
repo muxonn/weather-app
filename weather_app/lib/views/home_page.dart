@@ -10,7 +10,7 @@ class HomePage extends HookWidget {
 
   CurrentWeather? getWeather({required CurrentWeatherState from}) {
     final state = from;
-
+    print(state);
     if (state is CurrentWeatherLoading) {
       return state.lastWeather;
     }
@@ -49,7 +49,9 @@ class HomePage extends HookWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(top: 20),
-                      child: buildCurrentWeather(weather),
+                      child: weather == null
+                          ? Text('No data')
+                          : buildCurrentWeather(weather),
                     ),
                     const Spacer(),
                     Padding(
@@ -61,9 +63,9 @@ class HomePage extends HookWidget {
                           final location = textController.text;
                           //data.value = await getCurrentWeather();
                           //print(data.value.country);
-                          context
-                              .read<CurrentWeatherBloc>()
-                              .add(QueryForLocationEvent(location: location));
+                          context.read<CurrentWeatherBloc>().add(
+                                QueryForLocationEvent(location: location),
+                              );
                         },
                         constraints:
                             const BoxConstraints(maxWidth: 300, minHeight: 55),

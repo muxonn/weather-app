@@ -7,7 +7,7 @@ class CurrentWeatherInitial extends CurrentWeatherState {}
 class CurrentWeatherLoading extends CurrentWeatherState {
   final CurrentWeather? lastWeather;
 
-  CurrentWeatherLoading({required this.lastWeather});
+  CurrentWeatherLoading({this.lastWeather});
 }
 
 class CurrentWeatherLoaded extends CurrentWeatherState {
