@@ -25,7 +25,6 @@ class HomePage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final textController = useTextEditingController();
-
     return BlocProvider(
         create: (context) => CurrentWeatherBloc(
               repository: context.read<CurrentWeatherRepository>(),
@@ -33,7 +32,6 @@ class HomePage extends HookWidget {
         child: BlocBuilder<CurrentWeatherBloc, CurrentWeatherState>(
           builder: (context, state) {
             final weather = getWeather(from: state);
-
             return Scaffold(
               appBar: AppBar(
                 centerTitle: true,

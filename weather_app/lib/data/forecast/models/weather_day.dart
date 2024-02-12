@@ -15,6 +15,6 @@ class WeatherDay {
     maxTemperatureC = json["maxtemp_c"]?.toDouble();
     minTemperatureC = json["mintemp_c"]?.toDouble();
     maxWindKph = json["maxwind_kph"]?.toDouble();
-    avgHumidity = json["avghumidity"];
+    avgHumidity = json["avghumidity"]?.toDouble();
   }
 }

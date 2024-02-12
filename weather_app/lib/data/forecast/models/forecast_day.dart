@@ -14,7 +14,8 @@ class ForecastDay {
 
   ForecastDay.fromJson(Map<String, dynamic> json) {
     date = DateTime.parse(json['date']);
-    hour = json["hour"].map((x) => WeatherHour.fromJson(x));
+    hour = List<WeatherHour>.from(
+        json["hour"].map((x) => WeatherHour.fromJson(x)));
     day = WeatherDay.fromJson(json['day']);
   }
 }

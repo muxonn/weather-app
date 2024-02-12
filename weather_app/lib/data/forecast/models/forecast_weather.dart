@@ -6,7 +6,7 @@ class ForecastWeather {
   List<ForecastDay>? forecastDays;
 
   ForecastWeather.fromJson(Map<String, dynamic> json) {
-    forecastDays =
-        json['forecast']['forecastday'].map((x) => ForecastDay.fromJson(x));
+    forecastDays = List<ForecastDay>.from(
+        json['forecast']['forecastday'].map((x) => ForecastDay.fromJson(x)));
   }
 }
