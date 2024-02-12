@@ -11,7 +11,7 @@ class ForecastWeatherBloc
 
   ForecastWeatherBloc({required this.repository})
       : super(ForecastWeatherInitial()) {
-    on<QueryForLocationEvent>((event, emit) async {
+    on<QueryForForecastEvent>((event, emit) async {
       final location = event.location;
 
       final state = this.state;

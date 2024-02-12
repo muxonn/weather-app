@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:weather_app/blocs/current/current_weather_bloc.dart';
+import 'package:weather_app/blocs/forecast/forecast_weather_bloc.dart';
 import 'package:weather_app/data/current/current_weather_repository.dart';
 import 'package:weather_app/data/current/models/current_weather.dart';
+import 'package:weather_app/data/forecast/models/forecast_weather.dart';
 
 class HomePage extends HookWidget {
   const HomePage({super.key});
 
-  CurrentWeather? getWeather({required CurrentWeatherState from}) {
+  CurrentWeather? getCurrent({required CurrentWeatherState from}) {
     final state = from;
     print(state);
     if (state is CurrentWeatherLoading) {
@@ -16,6 +18,20 @@ class HomePage extends HookWidget {
     }
 
     if (state is CurrentWeatherLoaded) {
+      return state.weather;
+    }
+
+    return null;
+  }
+
+  ForecastWeather? getForecast({required ForecastWeatherState from}) {
+    final state = from;
+    print(state);
+    if (state is ForecastWeatherLoading) {
+      return state.lastWeather;
+    }
+
+    if (state is ForecastWeatherLoaded) {
       return state.weather;
     }
 
@@ -31,7 +47,7 @@ class HomePage extends HookWidget {
             ),
         child: BlocBuilder<CurrentWeatherBloc, CurrentWeatherState>(
           builder: (context, state) {
-            final weather = getWeather(from: state);
+            final weather = getCurrent(from: state);
             return Scaffold(
               appBar: AppBar(
                 centerTitle: true,
