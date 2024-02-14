@@ -62,14 +62,7 @@ class HomePage extends HookWidget {
                 child: Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(top: 20),
-                      child: weather == null
-                          ? Text('No data')
-                          : buildCurrentWeather(weather),
-                    ),
-                    const Spacer(),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 30),
+                      padding: const EdgeInsets.only(top: 10),
                       child: SearchBar(
                         controller: textController,
                         onSubmitted: (String value) async {
@@ -87,6 +80,12 @@ class HomePage extends HookWidget {
                         backgroundColor:
                             const MaterialStatePropertyAll(Colors.white),
                       ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 30),
+                      child: weather == null
+                          ? Text('No data')
+                          : buildCurrentWeather(weather),
                     ),
                     if (state is CurrentWeatherLoading)
                       const Center(child: CircularProgressIndicator()),
@@ -118,13 +117,26 @@ class HomePage extends HookWidget {
               "${data?.temperatureCelcius?.round()}°",
               style: TextStyle(fontSize: 60, fontWeight: FontWeight.bold),
             ),
-            SizedBox(width: 10),
+            //SizedBox(width: 10),
             Container(
               child: Image.network(
                 "https:${data?.conditionIcon}",
               ),
             ),
           ],
+        ),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          padding: const EdgeInsets.all(20),
+          child: Wrap(
+            spacing: 10,
+            children: [
+              Container(width: 100, height: 80, color: Colors.black),
+              Container(width: 100, height: 80, color: Colors.black),
+              Container(width: 100, height: 80, color: Colors.black),
+              Container(width: 100, height: 80, color: Colors.black),
+            ],
+          ),
         ),
       ],
     );
