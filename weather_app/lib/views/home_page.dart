@@ -174,19 +174,29 @@ class HomePage extends HookWidget {
 
   Widget buildForecastWeather(ForecastWeather? data) {
     FormattedForecast formatted = FormattedForecast(forecastWeather: data!);
-
     List<WeatherHour> next24Hours = formatted.getForecastHours();
-    List x = [0, 1, 2];
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        for (var hour in next24Hours)
-          HourSection(
-            time: formatted.getFormattedHour(hour.time!),
-            temperatureCelcius: hour.temperatureCelcius.toString(),
-            conditionText: hour.conditionText!,
-          )
-      ],
+
+    return Padding(
+      padding: const EdgeInsets.only(left: 30, right: 30),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            alignment: Alignment.bottomLeft,
+            child: const Text(
+              "Expected Feels Like",
+              style: TextStyle(fontSize: 20),
+            ),
+          ),
+          SizedBox(height: 10),
+          for (var hour in next24Hours)
+            HourSection(
+              time: formatted.getFormattedHour(hour.time!),
+              temperatureCelcius: hour.temperatureCelcius.toString(),
+              conditionText: hour.conditionText!,
+            )
+        ],
+      ),
     );
   }
 }

@@ -13,27 +13,36 @@ class HourSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Text x = Text(time);
-
     return Container(
-      width: 350,
       child: Row(
         //crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         //mainAxisSize: MainAxisSize.min,
         children: [
-          headline(time),
-          headline(temperatureCelcius),
-          headline(conditionText),
+          Container(
+            width: 140,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                headline(time, true),
+                SizedBox(width: 30),
+                headline('$temperatureCelcius℃', false),
+              ],
+            ),
+          ),
+          headline(conditionText, false),
         ],
       ),
     );
   }
 
-  Widget headline(String text) {
+  Widget headline(String text, bool isTime) {
+    FontWeight weight = FontWeight.bold;
+    isTime ? weight = FontWeight.normal : FontWeight.bold;
     return Text(
       text,
       overflow: TextOverflow.ellipsis,
+      style: TextStyle(fontSize: 18, fontWeight: weight),
     );
   }
 }
