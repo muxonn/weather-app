@@ -161,19 +161,19 @@ class HomePage extends HookWidget {
             ),
           ],
         ),
-        // SingleChildScrollView(
-        //   scrollDirection: Axis.horizontal,
-        //   padding: const EdgeInsets.only(left: 20, top: 10),
-        //   child: Wrap(
-        //     spacing: 10,
-        //     children: [
-        //       Container(width: 100, height: 80, color: Colors.black),
-        //       Container(width: 100, height: 80, color: Colors.black),
-        //       Container(width: 100, height: 80, color: Colors.black),
-        //       Container(width: 100, height: 80, color: Colors.black),
-        //     ],
-        //   ),
-        // ),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          padding: const EdgeInsets.only(left: 20, top: 10),
+          child: Wrap(
+            spacing: 10,
+            children: [
+              Container(width: 100, height: 80, color: Colors.black),
+              Container(width: 100, height: 80, color: Colors.black),
+              Container(width: 100, height: 80, color: Colors.black),
+              Container(width: 100, height: 80, color: Colors.black),
+            ],
+          ),
+        ),
       ],
     );
   }
