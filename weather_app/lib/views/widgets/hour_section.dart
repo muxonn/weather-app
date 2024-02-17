@@ -15,7 +15,6 @@ class HourSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(conditionText);
     return Column(
       children: [
         Container(
