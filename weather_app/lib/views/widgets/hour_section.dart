@@ -15,38 +15,45 @@ class HourSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Row(
-        //crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            width: 140,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                headline(time, true),
-                SizedBox(width: 30),
-                headline('$temperatureCelcius℃', false),
-              ],
-            ),
-          ),
-          Container(
-            width: 160,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Image.network(
-                  "https:$conditionIcon",
-                  width: 20,
+    print(conditionText);
+    return Column(
+      children: [
+        Container(
+          margin: EdgeInsets.only(top: 8, bottom: 8),
+          child: Row(
+            //crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 140,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    headline(time, true),
+                    SizedBox(width: 30),
+                    headline('$temperatureCelcius℃', false),
+                  ],
                 ),
-                headline(conditionText, false),
-              ],
-            ),
+              ),
+              Container(
+                width: 160,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Image.network(
+                      "https:$conditionIcon",
+                      width: 20,
+                    ),
+                    headline(conditionText, false),
+                  ],
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+        if (time == "11pm") Divider(height: 5),
+      ],
     );
   }
 

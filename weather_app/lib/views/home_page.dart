@@ -117,7 +117,7 @@ class HomePage extends HookWidget {
                           const Center(child: CircularProgressIndicator()),
                         Container(
                           alignment: Alignment.center,
-                          margin: EdgeInsets.only(top: 20, bottom: 20),
+                          margin: EdgeInsets.only(top: 10, bottom: 20),
                           width: double.infinity,
                           child: Text("🌤️ Weather App, 2024"),
                         ),
@@ -201,7 +201,8 @@ class HomePage extends HookWidget {
               temperatureCelcius: hour.temperatureCelcius.toString(),
               conditionText: hour.conditionText!,
               conditionIcon: hour.conditionIcon!,
-            )
+            ),
+          Divider(),
         ],
       ),
     );
