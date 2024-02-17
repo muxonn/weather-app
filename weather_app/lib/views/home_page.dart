@@ -115,6 +115,12 @@ class HomePage extends HookWidget {
                         if (currentState is CurrentWeatherLoading &&
                             forecastState is ForecastWeatherLoading)
                           const Center(child: CircularProgressIndicator()),
+                        Container(
+                          alignment: Alignment.center,
+                          margin: EdgeInsets.only(top: 20, bottom: 20),
+                          width: double.infinity,
+                          child: Text("🌤️ Weather App, 2024"),
+                        ),
                       ],
                     ),
                   ),
