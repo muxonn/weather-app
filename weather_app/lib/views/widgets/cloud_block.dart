@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:gradient_icon/gradient_icon.dart';
 
-class HumidityBlock extends StatelessWidget {
-  const HumidityBlock({required this.humidity});
+class CloudBlock extends StatelessWidget {
+  const CloudBlock({required this.cloudiness});
 
-  final int humidity;
+  final int cloudiness;
 
   @override
   Widget build(BuildContext context) {
-    double humidityValue = humidity / 100;
-
-    print(humidity);
+    print(cloudiness);
     return Container(
       width: 160,
-      height: 160,
       color: Colors.white,
       child: Column(
         children: [
@@ -32,7 +29,7 @@ class HumidityBlock extends StatelessWidget {
                     Colors.white,
                     Colors.white,
                   ],
-                  stops: [0, humidityValue, humidityValue, 1],
+                  stops: [0, cloudiness / 100, cloudiness / 100, 1],
                 ),
                 size: 60,
               ),
@@ -47,7 +44,7 @@ class HumidityBlock extends StatelessWidget {
               ),
             ],
           ),
-          Text('${humidity.toString()}%',
+          Text('${cloudiness.toString()}%',
               style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,

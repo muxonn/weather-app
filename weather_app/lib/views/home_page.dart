@@ -10,7 +10,7 @@ import 'package:weather_app/data/forecast/formatted_hour.dart';
 import 'package:weather_app/data/forecast/models/forecast_weather.dart';
 import 'package:weather_app/data/forecast/models/weather_hour.dart';
 import 'package:weather_app/views/widgets/hour_section.dart';
-import 'package:weather_app/views/widgets/humidity_block.dart';
+import 'package:weather_app/views/widgets/cloud_block.dart';
 
 class HomePage extends HookWidget {
   const HomePage({super.key});
@@ -164,11 +164,14 @@ class HomePage extends HookWidget {
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           padding: EdgeInsets.only(left: 20, top: 10),
-          child: Wrap(
-            spacing: 10,
-            children: [
-              HumidityBlock(humidity: data!.humidity!),
-            ],
+          child: Container(
+            height: 160,
+            child: Wrap(
+              spacing: 10,
+              children: [
+                CloudBlock(cloudiness: data!.cloudiness!),
+              ],
+            ),
           ),
         ),
       ],
