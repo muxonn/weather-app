@@ -5,11 +5,13 @@ class HourSection extends StatelessWidget {
     required this.time,
     required this.temperatureCelcius,
     required this.conditionText,
+    required this.conditionIcon,
   });
 
   final String time;
   final String temperatureCelcius;
   final String conditionText;
+  final String conditionIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +32,19 @@ class HourSection extends StatelessWidget {
               ],
             ),
           ),
-          headline(conditionText, false),
+          Container(
+            width: 160,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Image.network(
+                  "https:$conditionIcon",
+                  width: 20,
+                ),
+                headline(conditionText, false),
+              ],
+            ),
+          ),
         ],
       ),
     );

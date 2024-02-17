@@ -194,6 +194,7 @@ class HomePage extends HookWidget {
               time: formatted.getFormattedHour(hour.time!),
               temperatureCelcius: hour.temperatureCelcius.toString(),
               conditionText: hour.conditionText!,
+              conditionIcon: hour.conditionIcon!,
             )
         ],
       ),
