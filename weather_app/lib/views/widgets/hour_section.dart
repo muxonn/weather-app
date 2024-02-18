@@ -3,21 +3,33 @@ import 'package:flutter/material.dart';
 class HourSection extends StatelessWidget {
   const HourSection({
     required this.time,
+    required this.date,
     required this.temperatureCelcius,
     required this.conditionText,
     required this.conditionIcon,
   });
 
   final String time;
+  final String date;
   final String temperatureCelcius;
   final String conditionText;
   final String conditionIcon;
 
   @override
   Widget build(BuildContext context) {
-    print(conditionText);
     return Column(
       children: [
+        if (time == "12am")
+          Row(
+            children: [
+              const Expanded(child: Divider(height: 5)),
+              Padding(
+                padding: const EdgeInsets.only(left: 10, right: 10),
+                child: Text(date.split(' ')[0]),
+              ),
+              const Expanded(child: Divider(height: 5)),
+            ],
+          ),
         Container(
           margin: EdgeInsets.only(top: 8, bottom: 8),
           child: Row(
@@ -52,7 +64,6 @@ class HourSection extends StatelessWidget {
             ],
           ),
         ),
-        if (time == "11pm") Divider(height: 5),
       ],
     );
   }

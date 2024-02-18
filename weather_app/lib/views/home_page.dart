@@ -10,6 +10,9 @@ import 'package:weather_app/data/forecast/formatted_hour.dart';
 import 'package:weather_app/data/forecast/models/forecast_weather.dart';
 import 'package:weather_app/data/forecast/models/weather_hour.dart';
 import 'package:weather_app/views/widgets/hour_section.dart';
+import 'package:weather_app/views/widgets/cloud_block.dart';
+import 'package:weather_app/views/widgets/humidity_block.dart';
+import 'package:weather_app/views/widgets/wind_block.dart';
 
 class HomePage extends HookWidget {
   const HomePage({super.key});
@@ -77,6 +80,7 @@ class HomePage extends HookWidget {
                 body: SingleChildScrollView(
                   child: Center(
                     child: Column(
+                      mainAxisSize: MainAxisSize.max,
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(top: 10),
@@ -116,7 +120,7 @@ class HomePage extends HookWidget {
                             forecastState is ForecastWeatherLoading)
                           const Center(child: CircularProgressIndicator()),
                         Container(
-                          alignment: Alignment.center,
+                          alignment: Alignment.bottomCenter,
                           margin: EdgeInsets.only(top: 10, bottom: 20),
                           width: double.infinity,
                           child: Text("🌤️ Weather App, 2024"),
@@ -154,26 +158,27 @@ class HomePage extends HookWidget {
               style: TextStyle(fontSize: 60, fontWeight: FontWeight.bold),
             ),
             //SizedBox(width: 10),
-            Container(
-              child: Image.network(
-                "https:${data?.conditionIcon}",
-              ),
+            Image.network(
+              "https:${data?.conditionIcon}",
             ),
           ],
         ),
-        // SingleChildScrollView(
-        //   scrollDirection: Axis.horizontal,
-        //   padding: const EdgeInsets.only(left: 20, top: 10),
-        //   child: Wrap(
-        //     spacing: 10,
-        //     children: [
-        //       Container(width: 100, height: 80, color: Colors.black),
-        //       Container(width: 100, height: 80, color: Colors.black),
-        //       Container(width: 100, height: 80, color: Colors.black),
-        //       Container(width: 100, height: 80, color: Colors.black),
-        //     ],
-        //   ),
-        // ),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          padding: EdgeInsets.only(left: 20, top: 10),
+          child: Container(
+            child: Wrap(
+              spacing: 10,
+              children: [
+                CloudBlock(cloudiness: data!.cloudiness!),
+                HumidityBlock(humidity: data.humidity!),
+                WindBlock(
+                    windDirection: data.windDirection!,
+                    windSpeed: data.windKph!)
+              ],
+            ),
+          ),
+        ),
       ],
     );
   }
@@ -198,6 +203,7 @@ class HomePage extends HookWidget {
           for (var hour in next24Hours)
             HourSection(
               time: formatted.getFormattedHour(hour.time!),
+              date: hour.time!,
               temperatureCelcius: hour.temperatureCelcius.toString(),
               conditionText: hour.conditionText!,
               conditionIcon: hour.conditionIcon!,
