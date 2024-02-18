@@ -11,8 +11,10 @@ class CloudBlock extends StatelessWidget {
     print(cloudiness);
     return Container(
       width: 160,
+      height: 150,
       color: Colors.white,
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           const Text(
             'Cloudiness',

@@ -17,6 +17,7 @@ class HourSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        if (time == "12am") Divider(height: 5),
         Container(
           margin: EdgeInsets.only(top: 8, bottom: 8),
           child: Row(
@@ -51,7 +52,6 @@ class HourSection extends StatelessWidget {
             ],
           ),
         ),
-        if (time == "11pm") Divider(height: 5),
       ],
     );
   }

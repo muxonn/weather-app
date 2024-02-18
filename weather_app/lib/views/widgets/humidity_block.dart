@@ -10,8 +10,9 @@ class HumidityBlock extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 160,
-      color: Colors.white,
+      height: 150,
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           const Text(
             'Humidity',
