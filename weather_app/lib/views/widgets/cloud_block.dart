@@ -8,7 +8,6 @@ class CloudBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(cloudiness);
     return Container(
       width: 160,
       height: 150,

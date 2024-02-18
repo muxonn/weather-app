@@ -73,8 +73,9 @@ class HourSection extends StatelessWidget {
     isTime ? weight = FontWeight.normal : FontWeight.bold;
     return Text(
       text,
-      overflow: TextOverflow.ellipsis,
-      style: TextStyle(fontSize: 18, fontWeight: weight),
+      style:
+          //Prevent render overflow
+          TextStyle(fontSize: text.length < 15 ? 18 : 14, fontWeight: weight),
     );
   }
 }

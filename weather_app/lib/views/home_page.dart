@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:weather_app/blocs/current/current_weather_bloc.dart';
@@ -67,6 +68,7 @@ class HomePage extends HookWidget {
           return BlocBuilder<ForecastWeatherBloc, ForecastWeatherState>(
             builder: (context, forecastState) {
               final forecastWeather = getForecast(from: forecastState);
+
               return Scaffold(
                 appBar: AppBar(
                   centerTitle: true,
@@ -90,7 +92,6 @@ class HomePage extends HookWidget {
                               print(textController.text);
                               final location = textController.text;
                               //data.value = await getCurrentWeather();
-                              //print(data.value.country);
                               context.read<CurrentWeatherBloc>().add(
                                     QueryForLocationEvent(location: location),
                                   );
@@ -118,7 +119,7 @@ class HomePage extends HookWidget {
                         ),
                         if (currentState is CurrentWeatherLoading &&
                             forecastState is ForecastWeatherLoading)
-                          const Center(child: CircularProgressIndicator()),
+                          CircularProgressIndicator(),
                         Container(
                           alignment: Alignment.bottomCenter,
                           margin: EdgeInsets.only(top: 10, bottom: 20),
@@ -170,11 +171,37 @@ class HomePage extends HookWidget {
             child: Wrap(
               spacing: 10,
               children: [
-                CloudBlock(cloudiness: data!.cloudiness!),
-                HumidityBlock(humidity: data.humidity!),
+                CloudBlock(cloudiness: data!.cloudiness!)
+                    .animate(
+                        key: ValueKey(
+                            '${data.locationName!}-${data.cloudiness}'))
+                    .slide(
+                      delay: 0.ms,
+                      begin: Offset(0, 0.4),
+                      end: Offset(0, 0),
+                    )
+                    .fade(),
+                HumidityBlock(humidity: data.humidity!)
+                    .animate(
+                        key: ValueKey('${data.locationName!}-${data.humidity}'))
+                    .slide(
+                      delay: 300.ms,
+                      begin: Offset(0, 0.4),
+                      end: Offset(0, 0),
+                    )
+                    .fade(),
                 WindBlock(
-                    windDirection: data.windDirection!,
-                    windSpeed: data.windKph!)
+                        windDirection: data.windDirection!,
+                        windSpeed: data.windKph!)
+                    .animate(
+                        key: ValueKey(
+                            '${data.locationName!}-${data.windDirection}'))
+                    .slide(
+                      delay: 600.ms,
+                      begin: Offset(0, 0.4),
+                      end: Offset(0, 0),
+                    )
+                    .fade(),
               ],
             ),
           ),
@@ -200,14 +227,21 @@ class HomePage extends HookWidget {
             ),
           ),
           SizedBox(height: 10),
-          for (var hour in next24Hours)
+          for (var i = 0; i < next24Hours.length; i++)
             HourSection(
-              time: formatted.getFormattedHour(hour.time!),
-              date: hour.time!,
-              temperatureCelcius: hour.temperatureCelcius.toString(),
-              conditionText: hour.conditionText!,
-              conditionIcon: hour.conditionIcon!,
-            ),
+              time: formatted.getFormattedHour(next24Hours[i].time!),
+              date: next24Hours[i].time!,
+              temperatureCelcius: next24Hours[i].temperatureCelcius.toString(),
+              conditionText: next24Hours[i].conditionText!,
+              conditionIcon: next24Hours[i].conditionIcon!,
+            )
+                .animate(key: ValueKey('${data.locationName!}-$i'))
+                .slide(
+                  delay: (300 * i / 2).ms,
+                  begin: Offset(-0.4, 0),
+                  end: Offset(0, 0),
+                )
+                .fade(),
           Divider(),
         ],
       ),

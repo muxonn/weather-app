@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gradient_icon/gradient_icon.dart';
 
-class HumidityBlock extends StatelessWidget {
-  const HumidityBlock({required this.humidity});
+class HumidityBlock extends HookWidget {
+  const HumidityBlock({super.key, required this.humidity});
 
   final int humidity;
 
@@ -37,7 +38,7 @@ class HumidityBlock extends StatelessWidget {
                 size: 60,
               ),
               const Positioned.fill(
-                top: 8.3,
+                top: 8.1,
                 right: 10,
                 child: Icon(
                   Icons.water_drop_outlined,

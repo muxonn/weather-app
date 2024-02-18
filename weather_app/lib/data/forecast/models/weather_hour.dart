@@ -4,6 +4,7 @@ class WeatherHour {
   double? temperatureFahrenheit;
   String? conditionText;
   String? conditionIcon;
+  String? locationName;
 
   WeatherHour({
     this.time,

@@ -35,10 +35,6 @@ class FormattedForecast {
     for (int i = currentHour; i < currentHour + 24; i++) {
       next24Hours.add(joinedHours[i]);
     }
-
-    for (var i in next24Hours) {
-      print(i.time);
-    }
     return next24Hours;
   }
 }
