@@ -203,6 +203,7 @@ class HomePage extends HookWidget {
           for (var hour in next24Hours)
             HourSection(
               time: formatted.getFormattedHour(hour.time!),
+              date: hour.time!,
               temperatureCelcius: hour.temperatureCelcius.toString(),
               conditionText: hour.conditionText!,
               conditionIcon: hour.conditionIcon!,

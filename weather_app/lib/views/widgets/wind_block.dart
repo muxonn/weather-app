@@ -10,7 +10,7 @@ class WindBlock extends StatelessWidget {
 
   // TODO: Simplify that, maybe add an enum or something
 
-  Map<String, int> directionIndex = {
+  final Map<String, int> directionIndex = {
     'N': 0,
     'NNE': 1,
     'NE': 2,
@@ -63,7 +63,6 @@ class WindBlock extends StatelessWidget {
                     child: const Icon(
                       Icons.arrow_upward_rounded,
                       size: 40,
-                      color: Colors.red,
                     ),
                   ),
                 ),
