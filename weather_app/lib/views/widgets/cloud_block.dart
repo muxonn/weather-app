@@ -36,7 +36,7 @@ class CloudBlock extends StatelessWidget {
                 size: 60,
               ),
               const Positioned.fill(
-                top: 8,
+                top: 8.5,
                 right: 10,
                 child: Icon(
                   Icons.cloud_outlined,
