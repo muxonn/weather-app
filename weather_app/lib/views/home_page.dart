@@ -46,6 +46,20 @@ class HomePage extends HookWidget {
     return null;
   }
 
+  void submitSearch(
+      BuildContext context, TextEditingController textController) {
+    print(textController.text);
+    final location = textController.text;
+    context.read<CurrentWeatherBloc>().add(
+          QueryForLocationEvent(location: location),
+        );
+    context
+        .read<ForecastWeatherBloc>()
+        .add(QueryForForecastEvent(location: location));
+    textController.text = "";
+    FocusManager.instance.primaryFocus?.unfocus();
+  }
+
   @override
   Widget build(BuildContext context) {
     final textController = useTextEditingController();
@@ -89,18 +103,16 @@ class HomePage extends HookWidget {
                           child: SearchBar(
                             controller: textController,
                             onSubmitted: (String value) async {
-                              print(textController.text);
-                              final location = textController.text;
-                              context.read<CurrentWeatherBloc>().add(
-                                    QueryForLocationEvent(location: location),
-                                  );
-                              context.read<ForecastWeatherBloc>().add(
-                                  QueryForForecastEvent(location: location));
-                              textController.text = "";
+                              submitSearch(context, textController);
                             },
                             constraints: const BoxConstraints(
                                 maxWidth: 300, minHeight: 55),
-                            leading: const Icon(Icons.search),
+                            leading: IconButton(
+                              onPressed: () {
+                                submitSearch(context, textController);
+                              },
+                              icon: Icon(Icons.search),
+                            ),
                             backgroundColor:
                                 const MaterialStatePropertyAll(Colors.white),
                           ),
