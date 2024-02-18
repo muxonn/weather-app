@@ -91,12 +91,12 @@ class HomePage extends HookWidget {
                             onSubmitted: (String value) async {
                               print(textController.text);
                               final location = textController.text;
-                              //data.value = await getCurrentWeather();
                               context.read<CurrentWeatherBloc>().add(
                                     QueryForLocationEvent(location: location),
                                   );
                               context.read<ForecastWeatherBloc>().add(
                                   QueryForForecastEvent(location: location));
+                              textController.text = "";
                             },
                             constraints: const BoxConstraints(
                                 maxWidth: 300, minHeight: 55),
