@@ -25,7 +25,10 @@ class HourSection extends StatelessWidget {
               const Expanded(child: Divider(height: 5)),
               Padding(
                 padding: const EdgeInsets.only(left: 10, right: 10),
-                child: Text(date.split(' ')[0]),
+                child: Text(
+                  date.split(' ')[0],
+                  style: TextStyle(fontSize: 12),
+                ),
               ),
               const Expanded(child: Divider(height: 5)),
             ],
@@ -73,8 +76,9 @@ class HourSection extends StatelessWidget {
     isTime ? weight = FontWeight.normal : FontWeight.bold;
     return Text(
       text,
-      overflow: TextOverflow.ellipsis,
-      style: TextStyle(fontSize: 18, fontWeight: weight),
+      style:
+          //Prevent render overflow
+          TextStyle(fontSize: text.length < 15 ? 18 : 14, fontWeight: weight),
     );
   }
 }
