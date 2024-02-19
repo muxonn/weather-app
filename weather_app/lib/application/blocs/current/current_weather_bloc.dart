@@ -29,6 +29,8 @@ class CurrentWeatherBloc
         final newState = this.state;
         if (newState is CurrentWeatherLoading && newState.lastWeather != null) {
           emit(CurrentWeatherLoaded(weather: newState.lastWeather!));
+        } else {
+          emit(CurrentWeatherLoaded());
         }
       }
     });

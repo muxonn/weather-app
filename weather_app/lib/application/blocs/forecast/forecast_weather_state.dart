@@ -11,7 +11,7 @@ class ForecastWeatherLoading extends ForecastWeatherState {
 }
 
 class ForecastWeatherLoaded extends ForecastWeatherState {
-  final ForecastWeather weather;
+  final ForecastWeather? weather;
 
-  ForecastWeatherLoaded({required this.weather});
+  ForecastWeatherLoaded({this.weather});
 }

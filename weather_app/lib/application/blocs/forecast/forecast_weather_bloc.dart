@@ -30,6 +30,8 @@ class ForecastWeatherBloc
         if (newState is ForecastWeatherLoading &&
             newState.lastWeather != null) {
           emit(ForecastWeatherLoaded(weather: newState.lastWeather!));
+        } else {
+          emit(ForecastWeatherLoaded());
         }
       }
     });

@@ -11,7 +11,7 @@ class CurrentWeatherLoading extends CurrentWeatherState {
 }
 
 class CurrentWeatherLoaded extends CurrentWeatherState {
-  final CurrentWeather weather;
+  final CurrentWeather? weather;
 
-  CurrentWeatherLoaded({required this.weather});
+  CurrentWeatherLoaded({this.weather});
 }
