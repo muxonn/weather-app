@@ -5,5 +5,8 @@ class ThemeProvider extends ChangeNotifier {
 
   bool isDark;
 
-  void changeTheme(bool isDark) {}
+  void changeToDark(bool value) {
+    isDark = value;
+    notifyListeners();
+  }
 }

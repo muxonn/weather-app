@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:gradient_icon/gradient_icon.dart';
 
 class CloudBlock extends StatelessWidget {
-  const CloudBlock({required this.cloudiness});
+  const CloudBlock({required this.cloudiness, required this.isDark});
 
   final int cloudiness;
+  final bool isDark;
 
   @override
   Widget build(BuildContext context) {
+    Color primaryColor = isDark ? Colors.white : Colors.black;
+
     return Container(
       width: 160,
       height: 150,
@@ -23,11 +26,11 @@ class CloudBlock extends StatelessWidget {
               GradientIcon(
                 icon: Icons.cloud,
                 gradient: LinearGradient(
-                  colors: const [
-                    Colors.black,
-                    Colors.black,
-                    Colors.white,
-                    Colors.white,
+                  colors: [
+                    primaryColor,
+                    primaryColor,
+                    Colors.transparent,
+                    Colors.transparent,
                   ],
                   stops: [0, cloudiness / 100, cloudiness / 100, 1],
                 ),

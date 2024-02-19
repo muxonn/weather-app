@@ -4,10 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:weather_app/data/forecast/wind_dir.dart';
 
 class WindBlock extends StatelessWidget {
-  const WindBlock({required this.windDirection, required this.windSpeed});
+  const WindBlock({
+    required this.windDirection,
+    required this.windSpeed,
+    required this.isDark,
+  });
 
   final String windDirection;
   final double windSpeed;
+  final bool isDark;
 
   Map<String, int> getDirectionIndex() {
     Map<String, int> directionIndex = {};
@@ -32,6 +37,7 @@ class WindBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Color primaryColor = isDark ? Colors.white : Colors.black;
     Map<String, int> directionIndex = getDirectionIndex();
     Map<String, double> directionRadians = getDirectionRadians();
 
@@ -61,7 +67,6 @@ class WindBlock extends StatelessWidget {
                     child: const Icon(
                       Icons.arrow_upward_rounded,
                       size: 40,
-                      color: Colors.black,
                     ),
                   ),
                 ),
@@ -86,7 +91,7 @@ class WindBlock extends StatelessWidget {
                             shape: BoxShape.circle,
                             color: directionIndex[windDirection] == index
                                 ? Colors.blue
-                                : Colors.black,
+                                : primaryColor,
                           ),
                         ),
                       );

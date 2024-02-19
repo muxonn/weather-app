@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:weather_app/application/providers/theme_provider.dart';
 import 'package:weather_app/data/core/weather_client.dart';
 import 'package:weather_app/data/current/current_weather_repository.dart';
 import 'package:weather_app/data/forecast/forecast_weather_repository.dart';
@@ -18,6 +19,9 @@ void main() {
         Provider<ForecastWeatherRepository>(
           create: (context) => ForecastWeatherRepository(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => ThemeProvider(),
+        ),
       ],
       child: const MyApp(),
     ),
@@ -29,7 +33,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isDark = true;
+    bool isDark = Provider.of<ThemeProvider>(context).isDark;
     final ThemeData themeData =
         ThemeData(brightness: isDark ? Brightness.dark : Brightness.light);
 

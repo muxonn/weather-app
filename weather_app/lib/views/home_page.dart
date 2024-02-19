@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:provider/provider.dart';
 import 'package:weather_app/application/blocs/current/current_weather_bloc.dart';
 import 'package:weather_app/application/blocs/forecast/forecast_weather_bloc.dart';
+import 'package:weather_app/application/providers/theme_provider.dart';
 import 'package:weather_app/data/current/current_weather_repository.dart';
 import 'package:weather_app/data/current/models/current_weather.dart';
 import 'package:weather_app/data/forecast/forecast_weather_repository.dart';
@@ -63,6 +65,8 @@ class HomePage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final textController = useTextEditingController();
+    final isDark = Provider.of<ThemeProvider>(context).isDark;
+
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -108,13 +112,27 @@ class HomePage extends HookWidget {
                                     },
                                     icon: Icon(Icons.search),
                                   ),
+                                  trailing: [
+                                    IconButton(
+                                      isSelected: isDark,
+                                      onPressed: () {
+                                        Provider.of<ThemeProvider>(context,
+                                                listen: false)
+                                            .changeToDark(!isDark);
+                                      },
+                                      icon: const Icon(Icons.wb_sunny_outlined),
+                                      selectedIcon: const Icon(
+                                          Icons.brightness_2_outlined),
+                                    )
+                                  ],
                                 ),
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(top: 30),
                                 child: currentWeather == null
                                     ? SizedBox()
-                                    : buildCurrentWeather(currentWeather),
+                                    : buildCurrentWeather(
+                                        currentWeather, isDark),
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(top: 20),
@@ -149,7 +167,7 @@ class HomePage extends HookWidget {
     );
   }
 
-  Widget buildCurrentWeather(CurrentWeather? data) {
+  Widget buildCurrentWeather(CurrentWeather? data, bool isDark) {
     return Column(
       children: [
         Text(
@@ -182,7 +200,10 @@ class HomePage extends HookWidget {
             child: Wrap(
               spacing: 10,
               children: [
-                CloudBlock(cloudiness: data!.cloudiness!)
+                CloudBlock(
+                  cloudiness: data!.cloudiness!,
+                  isDark: isDark,
+                )
                     .animate(
                         key: ValueKey(
                             '${data.locationName!}-${data.cloudiness}'))
@@ -192,7 +213,10 @@ class HomePage extends HookWidget {
                       end: Offset(0, 0),
                     )
                     .fade(),
-                HumidityBlock(humidity: data.humidity!)
+                HumidityBlock(
+                  humidity: data.humidity!,
+                  isDark: isDark,
+                )
                     .animate(
                         key: ValueKey('${data.locationName!}-${data.humidity}'))
                     .slide(
@@ -202,8 +226,10 @@ class HomePage extends HookWidget {
                     )
                     .fade(),
                 WindBlock(
-                        windDirection: data.windDirection!,
-                        windSpeed: data.windKph!)
+                  windDirection: data.windDirection!,
+                  windSpeed: data.windKph!,
+                  isDark: isDark,
+                )
                     .animate(
                         key: ValueKey(
                             '${data.locationName!}-${data.windDirection}'))

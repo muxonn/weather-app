@@ -3,12 +3,15 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gradient_icon/gradient_icon.dart';
 
 class HumidityBlock extends HookWidget {
-  const HumidityBlock({super.key, required this.humidity});
+  const HumidityBlock({required this.humidity, required this.isDark});
 
   final int humidity;
+  final bool isDark;
 
   @override
   Widget build(BuildContext context) {
+    Color primaryColor = isDark ? Colors.white : Colors.black;
+
     return Container(
       width: 160,
       height: 150,
@@ -26,24 +29,24 @@ class HumidityBlock extends HookWidget {
                 gradient: LinearGradient(
                   begin: Alignment.bottomCenter,
                   end: Alignment.topCenter,
-                  colors: const [
-                    Colors.black,
-                    Colors.black,
-                    Colors.white,
-                    Colors.white,
+                  colors: [
+                    primaryColor,
+                    primaryColor,
+                    Colors.transparent,
+                    Colors.transparent,
                   ],
                   // Change bad fill scale by multiplying the valaue
                   stops: [0, humidity / 100 * .7, humidity / 100 * .7, 1],
                 ),
                 size: 60,
               ),
-              const Positioned.fill(
+              Positioned.fill(
                 top: 8.1,
                 right: 10,
                 child: Icon(
                   Icons.water_drop_outlined,
-                  color: Colors.black,
                   size: 60,
+                  color: primaryColor,
                 ),
               ),
             ],
