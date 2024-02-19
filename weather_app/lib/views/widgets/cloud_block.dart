@@ -11,7 +11,6 @@ class CloudBlock extends StatelessWidget {
     return Container(
       width: 160,
       height: 150,
-      color: Colors.white,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

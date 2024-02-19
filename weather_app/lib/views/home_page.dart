@@ -84,22 +84,14 @@ class HomePage extends HookWidget {
               final forecastWeather = getForecast(from: forecastState);
 
               return Scaffold(
-                appBar: AppBar(
-                  centerTitle: true,
-                  title: const Text("Weather App"),
-                  backgroundColor: Colors.transparent,
-                  shadowColor: Colors.transparent,
-                  iconTheme: IconThemeData(color: Colors.black),
-                ),
                 backgroundColor: Colors.white,
-                drawer: Drawer(),
                 body: SingleChildScrollView(
                   child: Center(
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(top: 10),
+                          padding: const EdgeInsets.only(top: 50),
                           child: SearchBar(
                             controller: textController,
                             onSubmitted: (String value) async {
