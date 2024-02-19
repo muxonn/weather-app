@@ -38,7 +38,6 @@ class CloudBlock extends StatelessWidget {
                 right: 10,
                 child: Icon(
                   Icons.cloud_outlined,
-                  color: Colors.black,
                   size: 60,
                 ),
               ),

@@ -29,7 +29,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isDark = true;
+    final ThemeData themeData =
+        ThemeData(brightness: isDark ? Brightness.dark : Brightness.light);
+
     return MaterialApp(
+      theme: themeData,
       debugShowCheckedModeBanner: false,
       home: HomePage(),
     );

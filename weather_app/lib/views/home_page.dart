@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:weather_app/blocs/current/current_weather_bloc.dart';
-import 'package:weather_app/blocs/forecast/forecast_weather_bloc.dart';
+import 'package:weather_app/application/blocs/current/current_weather_bloc.dart';
+import 'package:weather_app/application/blocs/forecast/forecast_weather_bloc.dart';
 import 'package:weather_app/data/current/current_weather_repository.dart';
 import 'package:weather_app/data/current/models/current_weather.dart';
 import 'package:weather_app/data/forecast/forecast_weather_repository.dart';
@@ -84,55 +84,62 @@ class HomePage extends HookWidget {
               final forecastWeather = getForecast(from: forecastState);
 
               return Scaffold(
-                backgroundColor: Colors.white,
-                body: SingleChildScrollView(
-                  child: Center(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 50),
-                          child: SearchBar(
-                            controller: textController,
-                            onSubmitted: (String value) async {
-                              submitSearch(context, textController);
-                            },
-                            constraints: const BoxConstraints(
-                                maxWidth: 300, minHeight: 55),
-                            leading: IconButton(
-                              onPressed: () {
-                                submitSearch(context, textController);
-                              },
-                              icon: Icon(Icons.search),
-                            ),
-                            backgroundColor:
-                                const MaterialStatePropertyAll(Colors.white),
+                body: Column(
+                  children: [
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Center(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(top: 50),
+                                child: SearchBar(
+                                  hintText: "Your location...",
+                                  controller: textController,
+                                  onSubmitted: (String value) async {
+                                    submitSearch(context, textController);
+                                  },
+                                  constraints: const BoxConstraints(
+                                      maxWidth: 300, minHeight: 55),
+                                  leading: IconButton(
+                                    onPressed: () {
+                                      submitSearch(context, textController);
+                                    },
+                                    icon: Icon(Icons.search),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 30),
+                                child: currentWeather == null
+                                    ? SizedBox()
+                                    : buildCurrentWeather(currentWeather),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 20),
+                                child: forecastWeather == null
+                                    ? SizedBox()
+                                    : buildForecastWeather(forecastWeather),
+                              ),
+                              if (currentState is CurrentWeatherLoading &&
+                                  forecastState is ForecastWeatherLoading)
+                                CircularProgressIndicator(),
+                            ],
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 30),
-                          child: currentWeather == null
-                              ? Text('No data')
-                              : buildCurrentWeather(currentWeather),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 20),
-                          child: forecastWeather == null
-                              ? Text('no data')
-                              : buildForecastWeather(forecastWeather),
-                        ),
-                        if (currentState is CurrentWeatherLoading &&
-                            forecastState is ForecastWeatherLoading)
-                          CircularProgressIndicator(),
-                        Container(
-                          alignment: Alignment.bottomCenter,
-                          margin: EdgeInsets.only(top: 10, bottom: 20),
-                          width: double.infinity,
-                          child: Text("🌤️ Weather App, 2024"),
-                        ),
-                      ],
+                      ),
                     ),
-                  ),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Container(
+                        alignment: Alignment.bottomCenter,
+                        margin: EdgeInsets.only(top: 8, bottom: 8),
+                        width: double.infinity,
+                        child: Text("🌤️ Weather App, 2024"),
+                      ),
+                    ),
+                  ],
                 ),
               );
             },
