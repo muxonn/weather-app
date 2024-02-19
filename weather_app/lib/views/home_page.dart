@@ -88,75 +88,109 @@ class HomePage extends HookWidget {
               final forecastWeather = getForecast(from: forecastState);
 
               return Scaffold(
-                body: Column(
+                body: Stack(
                   children: [
-                    Expanded(
-                      child: SingleChildScrollView(
-                        child: Center(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(top: 50),
-                                child: SearchBar(
-                                  hintText: "Your location...",
-                                  controller: textController,
-                                  onSubmitted: (String value) async {
-                                    submitSearch(context, textController);
-                                  },
-                                  constraints: const BoxConstraints(
-                                      maxWidth: 300, minHeight: 55),
-                                  leading: IconButton(
-                                    onPressed: () {
-                                      submitSearch(context, textController);
-                                    },
-                                    icon: Icon(Icons.search),
-                                  ),
-                                  trailing: [
-                                    IconButton(
-                                      isSelected: isDark,
-                                      onPressed: () {
-                                        Provider.of<ThemeProvider>(context,
-                                                listen: false)
-                                            .changeToDark(!isDark);
+                    Column(
+                      children: [
+                        Expanded(
+                          child: SingleChildScrollView(
+                            child: Center(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 50),
+                                    child: SearchBar(
+                                      hintText: "Your location...",
+                                      controller: textController,
+                                      onSubmitted: (String value) async {
+                                        submitSearch(context, textController);
                                       },
-                                      icon: const Icon(Icons.wb_sunny_outlined),
-                                      selectedIcon: const Icon(
-                                          Icons.brightness_2_outlined),
-                                    )
-                                  ],
-                                ),
+                                      constraints: const BoxConstraints(
+                                          maxWidth: 300, minHeight: 55),
+                                      leading: IconButton(
+                                        onPressed: () {
+                                          submitSearch(context, textController);
+                                        },
+                                        icon: Icon(Icons.search),
+                                      ),
+                                      trailing: [
+                                        IconButton(
+                                          isSelected: isDark,
+                                          onPressed: () {
+                                            Provider.of<ThemeProvider>(context,
+                                                    listen: false)
+                                                .changeToDark(!isDark);
+                                          },
+                                          icon: const Icon(
+                                              Icons.wb_sunny_outlined),
+                                          selectedIcon: const Icon(
+                                              Icons.brightness_2_outlined),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 30),
+                                    child: currentWeather == null
+                                        ? SizedBox()
+                                        : buildCurrentWeather(
+                                            currentWeather, isDark),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 20),
+                                    child: forecastWeather == null
+                                        ? SizedBox()
+                                        : buildForecastWeather(forecastWeather),
+                                  ),
+                                ],
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 30),
-                                child: currentWeather == null
-                                    ? SizedBox()
-                                    : buildCurrentWeather(
-                                        currentWeather, isDark),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 20),
-                                child: forecastWeather == null
-                                    ? SizedBox()
-                                    : buildForecastWeather(forecastWeather),
-                              ),
-                              if (currentState is CurrentWeatherLoading &&
-                                  forecastState is ForecastWeatherLoading)
-                                CircularProgressIndicator(),
-                            ],
+                            ),
                           ),
                         ),
-                      ),
+                        Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Container(
+                            alignment: Alignment.bottomCenter,
+                            margin: EdgeInsets.only(top: 8, bottom: 8),
+                            width: double.infinity,
+                            child: Text("🌤️ Weather App, 2024"),
+                          ),
+                        ),
+                      ],
                     ),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Container(
-                        alignment: Alignment.bottomCenter,
-                        margin: EdgeInsets.only(top: 8, bottom: 8),
+                    if (currentState is CurrentWeatherLoading &&
+                        forecastState is ForecastWeatherLoading)
+                      Container(
+                        height: double.infinity,
                         width: double.infinity,
-                        child: Text("🌤️ Weather App, 2024"),
-                      ),
-                    ),
+                        color: Colors.black.withOpacity(0.2),
+                        child: Center(
+                          child: Container(
+                            height: 110,
+                            width: 200,
+                            decoration: BoxDecoration(
+                              color: isDark
+                                  ? Colors.white.withOpacity(0.8)
+                                  : Colors.grey.withOpacity(0.9),
+                              borderRadius: BorderRadius.circular(20),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.2),
+                                  spreadRadius: 5,
+                                  blurRadius: 7,
+                                  offset: Offset(0, 3),
+                                ),
+                              ],
+                            ),
+                            child: Center(
+                              child: CircularProgressIndicator(
+                                color: isDark ? Colors.black : Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
                   ],
                 ),
               );
