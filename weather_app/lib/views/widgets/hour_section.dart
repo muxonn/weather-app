@@ -60,7 +60,11 @@ class HourSection extends StatelessWidget {
                       "https:$conditionIcon",
                       width: 20,
                     ),
-                    Expanded(child: headline(conditionText, false)),
+                    Expanded(
+                        child: Align(
+                      alignment: Alignment.centerRight,
+                      child: headline(conditionText, false),
+                    )),
                   ],
                 ),
               ),
