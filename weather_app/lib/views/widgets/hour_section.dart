@@ -60,7 +60,7 @@ class HourSection extends StatelessWidget {
                       "https:$conditionIcon",
                       width: 20,
                     ),
-                    headline(conditionText, false),
+                    Expanded(child: headline(conditionText, false)),
                   ],
                 ),
               ),
@@ -75,6 +75,7 @@ class HourSection extends StatelessWidget {
     FontWeight weight = FontWeight.bold;
     isTime ? weight = FontWeight.normal : FontWeight.bold;
     return Text(
+      overflow: TextOverflow.ellipsis,
       text,
       style:
           //Prevent render overflow
